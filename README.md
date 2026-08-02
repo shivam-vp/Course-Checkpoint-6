@@ -62,16 +62,17 @@ La palabra `pass` indica que la clase está vacía por el momento.
 
 Cuando creamos un objeto, normalmente queremos darle información, como un nombre o una edad.
 
-Para ello utilizamos el método especial `__init__()`, que se ejecuta automáticamente cuando se crea el objeto.
+Para ello utilizamos el método especial `__init__()`, que se ejecuta automáticamente cuando se crea el objeto. Entonces, esto también responde a la segunda pregunta: "¿Qué método se ejecuta automáticamente cuando se crea una instancia de una clase?"
 
 ```python
 class Persona:
-
-    def __init__(self, nombre):
+    def __init__(self, nombre, edad):
         self.nombre = nombre
+        self.edad = edad
+        print("Se ha creado una nueva persona.")
 ```
 
-En este ejemplo, cada objeto de la clase **Persona** tendrá un atributo llamado **nombre**.
+En este ejemplo, cada objeto de la clase **Persona** tendrá un atributo llamado **nombre** y  **edad** .
 
 ---
 
