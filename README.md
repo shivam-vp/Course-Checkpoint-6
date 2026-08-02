@@ -180,7 +180,13 @@ Marca: Toyota
 Color: Rojo
 ```
 
-![Clase y Objetos](Course_Checkpoint_6_Images/Python_Class_Image.jpg)
+---
+
+## Imagen 1
+
+![Python Class](Course%20Checkpoint%206%20Images/Python%20Class%20Image.jpg)
+
+Aquí tenemos un ejemplo de una clase llamada **Carro**. A partir de esta clase hemos creado tres **objetos** (también llamados **instancias**) llamados **ObjetoCarroVerde**, **ObjetoCarroAzul** y **ObjetoCarroRojo**. Cada uno de estos objetos tiene sus propios **atributos**, como el color o la marca, pero todos comparten los mismos **métodos**, ya que fueron definidos dentro de la clase **Carro**.
 
 ---
 
