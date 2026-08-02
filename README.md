@@ -557,120 +557,297 @@ Ejemplo:
 
 ---
 
+# 3. Cuales Son Los Verbos De API
+
+REST significa **Representational State Transfer**, que en español puede traducirse como **Transferencia de Estado Representacional**.
+
+Es importante entender que **REST no es un lenguaje de programación, una librería ni un protocolo**. En realidad, REST es un **estilo de arquitectura** o un conjunto de principios que sirven como guía para diseñar APIs de manera organizada, consistente y fácil de utilizar.
+
+La mayoría de las APIs modernas, como las de GitHub, Spotify, Stripe, Google Maps o OpenWeather, siguen los principios de REST.
+
+## Representational (Representacional)
+
+Cuando un cliente solicita información al servidor, este no envía directamente los datos de su base de datos, sino una **representación** de esos datos.
+
+Actualmente, la representación más utilizada es el formato **JSON**.
+
+Por ejemplo, supongamos que en la base de datos existe el siguiente usuario:
+
+```text
+Usuario #25
+
+Nombre: Alicia
+Edad: 30
+Ciudad: Madrid
+```
+
+Cuando una aplicación solicita ese usuario mediante una API REST, el servidor responde con una representación en formato JSON:
+
+```json
+{
+    "id": 25,
+    "nombre": "Alicia",
+    "edad": 30,
+    "ciudad": "Madrid"
+}
+```
+
+Ese objeto JSON representa la información almacenada en el servidor.
+
+---
+
+## State (Estado)
+
+La palabra **State** hace referencia al estado actual de los recursos almacenados en el servidor.
+
+Por ejemplo:
+
+- Un usuario puede existir o haber sido eliminado.
+- Un producto puede estar disponible o agotado.
+- Un pedido puede estar pendiente, enviado o entregado.
+
+Cada vez que se crea, modifica o elimina un recurso, el estado del servidor cambia.
+
+---
+
+## Transfer (Transferencia)
+
+La palabra **Transfer** hace referencia al intercambio de información entre el cliente y el servidor.
+
+Este intercambio ocurre mediante el protocolo HTTP.
+
+Generalmente el flujo es el siguiente:
+
+1. El cliente realiza una solicitud (Request).
+2. El servidor procesa esa solicitud.
+3. El servidor devuelve una respuesta (Response).
+
+Todo este proceso ocurre en cuestión de milisegundos.
+
+---
+# ¿Qué es un recurso (Resource)?
+
+En REST prácticamente todo se considera un **recurso**.
+
+Un recurso es cualquier elemento que una aplicación administra.
+
+Algunos ejemplos de recursos son:
+
+- Usuarios
+- Productos
+- Pedidos
+- Libros
+- Películas
+- Comentarios
+- Facturas
+
+Cada recurso suele tener su propia dirección o **URL**.
+
+Ejemplos:
+
+```text
+/usuarios
+/productos
+/libros
+/pedidos
+```
+
+Si queremos acceder a un usuario específico, normalmente se utiliza su identificador:
+
+```text
+/usuarios/5
+```
+
+En este caso estamos solicitando únicamente el usuario cuyo identificador es **5**.
+
+---
+
+# REST utiliza métodos HTTP
+
+Uno de los principios más importantes de REST es que la misma URL puede utilizarse para realizar diferentes operaciones dependiendo del **método HTTP** utilizado.
+
+Por ejemplo, en lugar de crear direcciones como:
+
+```text
+/crearUsuario
+/eliminarUsuario
+/actualizarUsuario
+```
+
+REST utiliza una única dirección:
+
+```text
+/usuarios
+```
+
+Y el comportamiento dependerá del método HTTP utilizado.
+
+Esto hace que las APIs sean mucho más organizadas, consistentes y fáciles de entender.
+
+---
+
 # Métodos HTTP más utilizados
 
-Las APIs REST utilizan principalmente estos métodos.
+Las APIs REST utilizan principalmente cinco métodos HTTP.
 
-## GET
+# Método GET
 
-Obtiene información.
+El método **GET** se utiliza para obtener información del servidor.
 
-Ejemplo:
+Por ejemplo:
 
-```
+```http
 GET /usuarios
 ```
 
----
+La aplicación está diciendo:
 
-## POST
+> "Muéstrame todos los usuarios."
 
-Crea información nueva.
-
-Ejemplo:
-
-```
-POST /usuarios
-```
-
----
-
-## PUT
-
-Actualiza completamente un recurso.
-
-```
-PUT /usuarios/5
-```
-
----
-
-## PATCH
-
-Actualiza parcialmente un recurso.
-
-```
-PATCH /usuarios/5
-```
-
----
-
-## DELETE
-
-Elimina información.
-
-```
-DELETE /usuarios/5
-```
-
----
-
-# Ejemplo completo
-
-Supongamos una tienda en línea.
-
-El usuario quiere ver todos los productos.
-
-La aplicación realiza esta solicitud:
-
-```
-GET /productos
-```
-
-El servidor responde:
+El servidor podría responder:
 
 ```json
 [
     {
         "id":1,
-        "nombre":"Mouse",
-        "precio":20
+        "nombre":"Alicia"
     },
     {
         "id":2,
-        "nombre":"Teclado",
-        "precio":40
+        "nombre":"Carlos"
     }
 ]
 ```
+En este caso **no se modifica ninguna información**.
 
-La aplicación muestra esa información al usuario.
+Simplemente se consulta la información existente.
 
 ---
 
-# ¿Qué es JSON?
+# Método POST
 
-La mayoría de las APIs envían la información utilizando JSON.
+El método **POST** se utiliza para crear un nuevo recurso.
 
-JSON significa:
+Supongamos que una aplicación permite registrar nuevos usuarios.
 
-**JavaScript Object Notation**
+La aplicación envía la siguiente solicitud:
 
-Es un formato muy ligero y fácil de leer tanto para humanos como para programas.
+```http
+POST /usuarios
+```
 
-Ejemplo:
+Junto con la información del nuevo usuario:
 
 ```json
 {
-    "nombre":"Carlos",
-    "edad":25,
-    "pais":"México"
+    "nombre":"Pedro",
+    "edad":28
 }
 ```
 
+El servidor recibe esos datos, crea un nuevo usuario y responde con la información almacenada:
+
+```json
+{
+    "id":15,
+    "nombre":"Pedro",
+    "edad":28
+}
+```
+Observa que el servidor asignó automáticamente el identificador **15**.
+
+Esto significa que la base de datos cambió porque se creó un nuevo recurso.
+
+## Ejemplo visual de POST
+
+Antes:
+
+```text
+Usuarios
+
+1 Alicia
+2 Carlos
+```
+
+Solicitud enviada:
+
+```http
+POST /usuarios
+```
+
+```json
+{
+    "nombre":"Pedro"
+}
+```
+
+Después:
+```text
+Usuarios
+
+1 Alicia
+2 Carlos
+3 Pedro
+```
+
+El recurso fue creado correctamente.
+
 ---
 
-# Consumiendo una API desde Python
+# Método DELETE
+
+El método **DELETE** se utiliza para eliminar un recurso existente.
+
+Supongamos que queremos eliminar el usuario con identificador **3**.
+
+La solicitud sería:
+
+```http
+DELETE /usuarios/3
+```
+
+El servidor elimina ese usuario y responde con un código como:
+
+```http
+204 No Content
+```
+
+Este código significa que la operación fue exitosa y que no es necesario devolver información adicional.
+
+---
+
+## Ejemplo visual de DELETE
+
+Antes:
+
+```text
+Usuarios
+
+1 Alicia
+2 Carlos
+3 Pedro
+```
+
+Solicitud enviada:
+
+```http
+DELETE /usuarios/3
+```
+
+Después:
+
+```text
+Usuarios
+
+1 Alicia
+2 Carlos
+```
+
+El usuario con identificador **3** ya no existe.
+
+---
+
+# Utilizando una API REST desde Python
 
 Python facilita enormemente el consumo de APIs mediante la librería `requests`.
 
@@ -692,7 +869,6 @@ respuesta = requests.get(
 print(respuesta.status_code)
 print(respuesta.json())
 ```
-
 ---
 
 ## Explicación
@@ -736,5 +912,82 @@ Convierte la respuesta JSON en un objeto de Python (listas y diccionarios) para 
 | 404 | Recurso no encontrado |
 | 500 | Error interno del servidor |
 
+---
+
+## Ejemplo utilizando GET
+
+```python
+import requests
+
+respuesta = requests.get(
+    "https://api.ejemplo.com/usuarios"
+)
+
+print(respuesta.json())
+```
+
+Este código solicita la lista de usuarios al servidor.
+
+---
+
+## Ejemplo utilizando POST
+
+```python
+import requests
+
+nuevo_usuario = {
+    "nombre": "Pedro",
+    "edad": 28
+}
+
+respuesta = requests.post(
+    "https://api.ejemplo.com/usuarios",
+    json=nuevo_usuario
+)
+
+print(respuesta.status_code)
+print(respuesta.json())
+```
+
+Aquí `requests.post()` envía la información al servidor para crear un nuevo usuario.
+
+---
+
+## Ejemplo utilizando DELETE
+
+```python
+import requests
+
+respuesta = requests.delete(
+    "https://api.ejemplo.com/usuarios/15"
+)
+
+print(respuesta.status_code)
+```
+
+Este código solicita al servidor que elimine el usuario cuyo identificador es **15**.
+
+---
+
+
+# ¿Qué es JSON?
+
+La mayoría de las APIs envían la información utilizando JSON.
+
+JSON significa:
+
+**JavaScript Object Notation**
+
+Es un formato muy ligero y fácil de leer tanto para humanos como para programas.
+
+Ejemplo:
+
+```json
+{
+    "nombre":"Carlos",
+    "edad":25,
+    "pais":"México"
+}
+```
 ---
 
