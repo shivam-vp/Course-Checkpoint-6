@@ -180,7 +180,7 @@ Marca: Toyota
 Color: Rojo
 ```
 
-![Clase y Objetos](course_checkpoint_6_images/python_class_image.jpg)
+![Clase y Objetos](Course_Checkpoint_6_Images/Python_Class_Image.jpg)
 
 ---
 
