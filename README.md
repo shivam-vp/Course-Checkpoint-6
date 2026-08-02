@@ -970,24 +970,4 @@ Este código solicita al servidor que elimine el usuario cuyo identificador es *
 ---
 
 
-# ¿Qué es JSON?
-
-La mayoría de las APIs envían la información utilizando JSON.
-
-JSON significa:
-
-**JavaScript Object Notation**
-
-Es un formato muy ligero y fácil de leer tanto para humanos como para programas.
-
-Ejemplo:
-
-```json
-{
-    "nombre":"Carlos",
-    "edad":25,
-    "pais":"México"
-}
-```
----
 
