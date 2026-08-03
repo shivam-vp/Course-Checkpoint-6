@@ -1394,8 +1394,10 @@ Por ejemplo:
 
 ---
 
-# Comparación entre SQL y MongoDB
+# Comparación entre SQL y NoSQL Como MongoDB
 
+## Imagen 4
+![SQL Vs NoSQL Comparison](Course%20Checkpoint%206%20Images/SQL%20Vs%20NoSQL%20Image.jpg)
 
 ---
 
