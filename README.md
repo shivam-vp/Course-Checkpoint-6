@@ -559,6 +559,10 @@ Ejemplo:
 
 # 3. Cuales Son Los Verbos De API
 
+## Imagen 3
+![REST API](Course%20Checkpoint%206%20Images/REST%20API%20Image.webp)
+
+
 REST significa **Representational State Transfer**, que en español puede traducirse como **Transferencia de Estado Representacional**.
 
 Es importante entender que **REST no es un lenguaje de programación, una librería ni un protocolo**. En realidad, REST es un **estilo de arquitectura** o un conjunto de principios que sirven como guía para diseñar APIs de manera organizada, consistente y fácil de utilizar.
