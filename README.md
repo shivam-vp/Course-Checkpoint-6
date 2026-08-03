@@ -974,4 +974,511 @@ Este código solicita al servidor que elimine el usuario cuyo identificador es *
 ---
 
 
+# 4. ¿Es MongoDB una Base de Datos SQL o NoSQL?
+
+## Introducción
+
+Cuando comenzamos a trabajar con bases de datos, normalmente el primer tipo que conocemos son las **bases de datos relacionales (SQL)**, como MySQL, PostgreSQL o SQL Server. Sin embargo, a medida que las aplicaciones comenzaron a manejar grandes cantidades de información y datos con estructuras muy diferentes, surgió un nuevo tipo de bases de datos llamadas **NoSQL**.
+
+**MongoDB pertenece a la categoría de bases de datos NoSQL**, específicamente al tipo **orientado a documentos (Document Database)**.
+
+---
+
+# ¿Qué significa SQL?
+
+**SQL** significa **Structured Query Language** (Lenguaje de Consulta Estructurado).
+
+Es el lenguaje utilizado para interactuar con bases de datos relacionales.
+
+Las bases de datos SQL almacenan la información en **tablas**, las cuales están compuestas por:
+
+- Filas (Registros)
+- Columnas (Campos)
+
+Por ejemplo, una tabla de usuarios:
+
+| id | nombre | edad | ciudad |
+|----|---------|------|---------|
+|1|Juan|25|Madrid|
+|2|Ana|30|Barcelona|
+|3|Pedro|22|Valencia|
+
+Cada columna tiene un tipo de dato definido.
+
+Por ejemplo:
+
+- nombre → Texto
+- edad → Número
+- ciudad → Texto
+
+La estructura de la tabla normalmente debe definirse antes de comenzar a guardar información.
+
+---
+
+# ¿Qué significa NoSQL?
+
+**NoSQL** significa literalmente:
+
+> **Not Only SQL (No Solo SQL)**
+
+Es importante entender que **NoSQL no significa que no pueda realizar consultas**, sino que **no utiliza el modelo relacional tradicional basado en tablas**.
+
+Las bases de datos NoSQL fueron diseñadas para resolver problemas que las bases de datos relacionales no manejaban de manera eficiente, especialmente cuando:
+
+- Existen millones de usuarios.
+- Los datos cambian constantemente.
+- No todos los registros tienen la misma estructura.
+- Es necesario escalar horizontalmente utilizando muchos servidores.
+
+MongoDB es una de las bases de datos NoSQL más populares del mundo.
+
+---
+
+# Entonces... ¿MongoDB es SQL o NoSQL?
+
+La respuesta es:
+
+> **MongoDB es una base de datos NoSQL orientada a documentos.**
+
+No almacena la información en tablas.
+
+En lugar de eso almacena **documentos**.
+
+Estos documentos se organizan dentro de **colecciones (Collections)**.
+
+La estructura general es:
+
+```
+Base de Datos
+      │
+      ├── Colección Usuarios
+      │         ├── Documento 1
+      │         ├── Documento 2
+      │         └── Documento 3
+      │
+      └── Colección Productos
+                ├── Documento 1
+                └── Documento 2
+```
+
+---
+
+# ¿Qué es un Documento?
+
+Un documento es una estructura muy parecida a un objeto de JavaScript.
+
+MongoDB utiliza un formato llamado **BSON (Binary JSON)**.
+
+BSON es una versión binaria del formato JSON.
+
+Por ejemplo:
+
+```json
+{
+    "nombre": "Juan",
+    "edad": 25,
+    "ciudad": "Madrid"
+}
+```
+
+Ese objeto completo representa un documento.
+
+---
+
+# ¿Qué es una Colección?
+
+Una colección es el equivalente a una tabla en SQL.
+
+Por ejemplo:
+
+Colección:
+
+```
+Usuarios
+```
+
+Contiene documentos como:
+
+```json
+{
+    "nombre":"Juan",
+    "edad":25
+}
+```
+
+```json
+{
+    "nombre":"Ana",
+    "edad":30
+}
+```
+
+```json
+{
+    "nombre":"Pedro",
+    "edad":22
+}
+```
+
+Cada documento representa un usuario.
+
+---
+
+# ¿Qué significa BSON?
+
+MongoDB realmente almacena los documentos utilizando **BSON**.
+
+BSON significa:
+
+**Binary JSON**
+
+Es una versión binaria de JSON.
+
+¿Por qué utilizar BSON?
+
+Porque permite:
+
+- Mayor velocidad.
+- Almacenar fechas.
+- Almacenar datos binarios.
+- Almacenar números grandes.
+- Mejor rendimiento al leer y escribir información.
+
+---
+
+# Diferencia entre Tabla y Colección
+
+## SQL
+
+```
+Tabla Usuarios
+
++----+---------+------+
+| id | nombre  | edad |
++----+---------+------+
+| 1  | Juan    | 25   |
+| 2  | Ana     | 30   |
++----+---------+------+
+```
+
+---
+
+## MongoDB
+
+Colección Usuarios
+
+```json
+{
+    "nombre":"Juan",
+    "edad":25
+}
+```
+
+```json
+{
+    "nombre":"Ana",
+    "edad":30
+}
+```
+
+---
+
+# ¿Por qué MongoDB utiliza documentos?
+
+Porque los documentos permiten almacenar información mucho más flexible.
+
+Por ejemplo:
+
+Un usuario podría tener únicamente nombre y edad.
+
+```json
+{
+    "nombre":"Juan",
+    "edad":25
+}
+```
+
+Mientras que otro usuario podría tener más información.
+
+```json
+{
+    "nombre":"Ana",
+    "edad":30,
+    "telefono":"555-1234",
+    "direccion":"Madrid"
+}
+```
+
+En SQL esto normalmente requeriría agregar nuevas columnas a la tabla.
+
+En MongoDB esto no es necesario.
+
+Cada documento puede tener distintos campos.
+
+Esta característica recibe el nombre de **esquema flexible (Flexible Schema)**.
+
+---
+
+# ¿Qué es un Esquema Flexible?
+
+En las bases de datos SQL todas las filas suelen tener exactamente las mismas columnas.
+
+Por ejemplo:
+
+|Nombre|Edad|Ciudad|
+|------|----|------|
+|Juan|25|Madrid|
+|Ana|30|Barcelona|
+
+Todos los registros deben respetar esa estructura.
+
+En MongoDB esto no ocurre.
+
+Cada documento puede contener información distinta.
+
+Ejemplo:
+
+Documento 1
+
+```json
+{
+    "nombre":"Juan"
+}
+```
+
+Documento 2
+
+```json
+{
+    "nombre":"Ana",
+    "edad":30
+}
+```
+
+Documento 3
+
+```json
+{
+    "nombre":"Pedro",
+    "edad":22,
+    "telefono":"999999"
+}
+```
+
+Esto hace que MongoDB sea muy flexible.
+
+---
+
+# ¿Por qué fue creado MongoDB?
+
+Con el crecimiento de Internet aparecieron aplicaciones como:
+
+- Facebook
+- Twitter
+- Instagram
+- YouTube
+
+Estas plataformas generan enormes cantidades de información.
+
+Además:
+
+- Los usuarios agregan nuevos datos constantemente.
+- Cada usuario puede tener información diferente.
+- La cantidad de datos crece todos los días.
+
+Las bases de datos relacionales comenzaron a presentar limitaciones para algunos de estos escenarios.
+
+MongoDB fue creado para resolver este tipo de problemas.
+
+---
+
+# ¿Qué ventajas tiene MongoDB?
+
+## 1. Gran flexibilidad
+
+No es necesario que todos los documentos tengan exactamente la misma estructura.
+
+---
+
+## 2. Escalabilidad
+
+MongoDB puede distribuir los datos entre múltiples servidores.
+
+Esto permite manejar millones de usuarios.
+
+---
+
+## 3. Alto rendimiento
+
+Las consultas suelen ser muy rápidas cuando se utilizan índices correctamente.
+
+---
+
+## 4. Fácil integración con JavaScript
+
+Como utiliza documentos similares a JSON, trabajar con JavaScript resulta muy natural.
+
+Ejemplo:
+
+```javascript
+const usuario = {
+    nombre: "Juan",
+    edad: 25
+}
+```
+
+Este objeto es prácticamente igual al documento almacenado en MongoDB.
+
+---
+
+## 5. Maneja datos complejos
+
+Puede almacenar objetos dentro de otros objetos.
+
+Ejemplo:
+
+```json
+{
+    "nombre":"Juan",
+    "direccion":{
+        "calle":"Mayor",
+        "numero":15,
+        "ciudad":"Madrid"
+    }
+}
+```
+
+También puede almacenar listas.
+
+```json
+{
+    "nombre":"Juan",
+    "hobbies":[
+        "Fútbol",
+        "Programación",
+        "Videojuegos"
+    ]
+}
+```
+
+---
+
+# ¿Cuándo utilizar MongoDB?
+
+MongoDB es una buena opción cuando:
+
+- Los datos cambian frecuentemente.
+- No todos los registros tienen la misma estructura.
+- Se necesita escalar rápidamente.
+- Se manejan grandes cantidades de información.
+- Se trabaja con aplicaciones web modernas.
+- Se utilizan tecnologías como Node.js o JavaScript.
+
+---
+
+# ¿Cuándo puede ser mejor utilizar SQL?
+
+Las bases de datos SQL suelen ser preferibles cuando:
+
+- Se requiere una estructura muy definida.
+- Es importante mantener relaciones complejas entre tablas.
+- Se necesita garantizar la consistencia mediante transacciones complejas.
+- Se realizan consultas muy avanzadas que involucran múltiples relaciones entre datos.
+
+Por ejemplo:
+
+- Sistemas bancarios.
+- Sistemas contables.
+- Facturación.
+- Nóminas.
+
+---
+
+# Comparación entre SQL y MongoDB
+
+
+---
+
+# Ejemplo práctico
+
+## En SQL
+
+Tabla Usuarios
+
+|id|nombre|edad|
+|--|-------|----|
+|1|Juan|25|
+
+Consulta:
+
+```sql
+SELECT * FROM Usuarios;
+```
+
+---
+
+## En MongoDB
+
+Colección:
+
+```json
+{
+    "nombre":"Juan",
+    "edad":25
+}
+```
+
+Consulta:
+
+```javascript
+db.usuarios.find()
+```
+
+Resultado:
+
+```json
+{
+    "nombre":"Juan",
+    "edad":25
+}
+```
+
+---
+
+# ¿MongoDB utiliza SQL?
+
+No.
+
+MongoDB posee su propio lenguaje de consultas.
+
+Ejemplos:
+
+Buscar todos los usuarios:
+
+```javascript
+db.usuarios.find()
+```
+
+Buscar un usuario específico:
+
+```javascript
+db.usuarios.find({
+    nombre: "Juan"
+})
+```
+
+Buscar usuarios mayores de 18 años:
+
+```javascript
+db.usuarios.find({
+    edad: {
+        $gt: 18
+    }
+})
+```
+
+Aunque la sintaxis es diferente a SQL, el objetivo es el mismo: consultar, insertar, actualizar y eliminar información.
+
+---
+
 
