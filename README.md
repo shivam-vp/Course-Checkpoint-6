@@ -1484,3 +1484,1021 @@ Aunque la sintaxis es diferente a SQL, el objetivo es el mismo: consultar, inser
 ---
 
 
+# 5. ¿Qué es Postman?
+
+**Postman** es una herramienta utilizada principalmente para **crear, enviar, probar y documentar solicitudes HTTP hacia APIs**.
+
+En el desarrollo de aplicaciones, es muy común que una aplicación necesite comunicarse con un servidor. Por ejemplo:
+
+* Una aplicación web necesita obtener información de usuarios.
+* Una aplicación móvil necesita iniciar sesión.
+* Un sistema necesita registrar un nuevo pedido.
+* Una aplicación necesita consultar productos almacenados en una base de datos.
+
+Estas comunicaciones normalmente se realizan mediante una **API**, utilizando protocolos HTTP/HTTPS. Postman permite realizar estas solicitudes de manera sencilla, sin necesidad de desarrollar primero una interfaz gráfica o escribir código para probarlas.
+
+---
+
+# ¿Para qué se utiliza Postman?
+
+Postman se utiliza principalmente para trabajar con **APIs**.
+
+Entre sus usos más importantes encontramos:
+
+* Enviar solicitudes HTTP.
+* Probar APIs.
+* Comprobar las respuestas de un servidor.
+* Crear y modificar datos mediante una API.
+* Probar diferentes métodos HTTP.
+* Enviar parámetros.
+* Enviar información en formato JSON.
+* Añadir encabezados HTTP.
+* Trabajar con autenticación.
+* Automatizar pruebas.
+* Crear colecciones de solicitudes.
+* Documentar APIs.
+* Detectar errores durante el desarrollo de un backend.
+
+Por ejemplo, imaginemos que estamos desarrollando una API para administrar usuarios.
+
+Podríamos tener los siguientes endpoints:
+
+```text
+GET    /usuarios
+GET    /usuarios/15
+POST   /usuarios
+PUT    /usuarios/15
+DELETE /usuarios/15
+```
+
+Antes de crear una aplicación frontend que utilice esta API, podemos utilizar Postman para comprobar que cada uno de estos endpoints funciona correctamente.
+
+---
+
+# ¿Qué es HTTP?
+
+Las APIs web normalmente utilizan el protocolo **HTTP** o su versión segura **HTTPS**.
+
+HTTP significa:
+
+> **HyperText Transfer Protocol**
+
+Es el protocolo utilizado para la comunicación entre clientes y servidores en la Web.
+
+Una comunicación HTTP tiene principalmente dos partes:
+
+```text
+Cliente → Solicitud HTTP → Servidor
+Cliente ← Respuesta HTTP ← Servidor
+```
+
+Por ejemplo:
+
+```text
+Postman
+   │
+   │ GET /usuarios
+   ↓
+Servidor
+   │
+   │ 200 OK
+   │
+   │ [usuarios]
+   ↓
+Postman
+```
+
+Postman actúa como el **cliente** que realiza la solicitud.
+
+---
+
+# ¿Qué es una solicitud HTTP?
+
+Una solicitud HTTP, o **HTTP Request**, es un mensaje que un cliente envía a un servidor para solicitar que realice alguna operación.
+
+Una solicitud puede contener diferentes elementos:
+
+```text
+Método HTTP
+URL
+Headers
+Body
+```
+
+Por ejemplo:
+
+```http
+POST https://api.ejemplo.com/usuarios
+```
+
+Con un cuerpo:
+
+```json
+{
+    "nombre": "Ana",
+    "email": "ana@example.com"
+}
+```
+
+El servidor recibe la solicitud, procesa la información y devuelve una respuesta.
+
+---
+
+# ¿Qué es una respuesta HTTP?
+
+La respuesta HTTP, o **HTTP Response**, es el mensaje que devuelve el servidor después de recibir una solicitud.
+
+Por ejemplo:
+
+```http
+HTTP/1.1 200 OK
+```
+
+Y podría contener:
+
+```json
+{
+    "id": 25,
+    "nombre": "Ana",
+    "email": "ana@example.com"
+}
+```
+
+En Postman podemos visualizar fácilmente tanto la solicitud que enviamos como la respuesta recibida.
+
+---
+
+# ¿Qué es un endpoint?
+
+Un **endpoint** es una dirección específica de una API que permite acceder a una determinada funcionalidad o recurso.
+
+Por ejemplo:
+
+```text
+GET    /usuarios
+GET    /usuarios/10
+POST   /usuarios
+PUT    /usuarios/10
+DELETE /usuarios/10
+```
+
+Aunque varias solicitudes utilizan `/usuarios`, el método HTTP determina la operación.
+
+Por ejemplo:
+
+```text
+GET /usuarios
+```
+
+significa obtener usuarios.
+
+Mientras que:
+
+```text
+POST /usuarios
+```
+
+significa crear un usuario.
+
+Por eso, un endpoint no debe entenderse únicamente como una URL, sino como una combinación de una ruta y el método HTTP utilizado.
+
+---
+
+# Headers
+
+Los **headers**, o encabezados HTTP, contienen información adicional sobre una solicitud o respuesta.
+
+Por ejemplo:
+
+```http
+Content-Type: application/json
+```
+
+indica que el contenido enviado está en formato JSON.
+
+Otro ejemplo habitual es:
+
+```http
+Authorization: Bearer TOKEN
+```
+
+que puede utilizarse para enviar las credenciales necesarias para acceder a una API.
+
+En Postman podemos añadir headers desde la pestaña:
+
+```text
+Headers
+```
+
+Por ejemplo:
+
+| Key             | Value              |
+| --------------- | ------------------ |
+| `Content-Type`  | `application/json` |
+| `Authorization` | `Bearer abc123`    |
+
+---
+
+# Body
+
+El **body** es el contenido que enviamos dentro de una solicitud HTTP.
+
+Es especialmente habitual utilizarlo con solicitudes `POST`, `PUT` y `PATCH`.
+
+Por ejemplo:
+
+```json
+{
+    "nombre": "Pedro",
+    "edad": 25,
+    "email": "pedro@example.com"
+}
+```
+
+En Postman podemos seleccionar:
+
+```text
+Body
+  ↓
+raw
+  ↓
+JSON
+```
+
+y escribir el contenido.
+
+---
+
+# JSON
+
+Muchas APIs utilizan **JSON** para enviar y recibir información.
+
+JSON significa:
+
+> **JavaScript Object Notation**
+
+Aunque originalmente está relacionado con JavaScript, actualmente es un formato utilizado ampliamente por aplicaciones desarrolladas en diferentes lenguajes.
+
+Ejemplo:
+
+```json
+{
+    "nombre": "Ana",
+    "edad": 24,
+    "activo": true
+}
+```
+
+Aquí tenemos tres propiedades:
+
+```text
+nombre → "Ana"
+edad   → 24
+activo → true
+```
+
+Un ejemplo más complejo:
+
+```json
+{
+    "usuario": {
+        "id": 15,
+        "nombre": "Ana"
+    },
+    "roles": [
+        "usuario",
+        "editor"
+    ]
+}
+```
+
+Postman permite trabajar directamente con este tipo de información.
+
+---
+
+# Query Parameters
+
+Los **query parameters** permiten enviar información adicional a través de la URL.
+
+Por ejemplo:
+
+```text
+GET https://api.ejemplo.com/productos?categoria=ordenadores
+```
+
+Aquí:
+
+```text
+categoria=ordenadores
+```
+
+es un query parameter.
+
+Podemos tener varios:
+
+```text
+GET https://api.ejemplo.com/productos?categoria=ordenadores&precio=1000
+```
+
+La estructura general es:
+
+```text
+URL?parametro1=valor1&parametro2=valor2
+```
+
+En Postman podemos introducirlos desde la sección:
+
+```text
+Params
+```
+
+Por ejemplo:
+
+| Key         | Value         |
+| ----------- | ------------- |
+| `categoria` | `ordenadores` |
+| `precio`    | `1000`        |
+
+Postman construirá automáticamente la URL.
+
+---
+
+# Path Parameters
+
+Los **path parameters** son valores incluidos directamente dentro de la ruta.
+
+Por ejemplo:
+
+```text
+GET /usuarios/25
+```
+
+Aquí:
+
+```text
+25
+```
+
+es el identificador del usuario.
+
+Una API podría definir el endpoint como:
+
+```text
+GET /usuarios/{id}
+```
+
+y utilizar:
+
+```text
+GET /usuarios/25
+```
+
+para obtener el usuario cuyo ID es `25`.
+
+La diferencia principal es:
+
+```text
+Query parameter:
+ /usuarios?id=25
+
+Path parameter:
+ /usuarios/25
+```
+
+---
+
+# Status Codes
+
+Cuando enviamos una solicitud, el servidor devuelve un **código de estado HTTP**.
+
+Este código permite saber qué ocurrió con nuestra solicitud.
+
+Algunos de los más importantes son:
+
+| Código | Significado                |
+| -----: | -------------------------- |
+|  `200` | OK                         |
+|  `201` | Recurso creado             |
+|  `204` | Éxito sin contenido        |
+|  `400` | Solicitud incorrecta       |
+|  `401` | No autenticado             |
+|  `403` | Acceso prohibido           |
+|  `404` | Recurso no encontrado      |
+|  `500` | Error interno del servidor |
+
+---
+
+# Autenticación
+
+Muchas APIs no permiten que cualquier persona pueda acceder a todos sus recursos.
+
+Por ejemplo:
+
+```text
+GET /usuarios
+```
+
+podría requerir autenticación.
+
+Existen diferentes sistemas de autenticación.
+
+Algunos ejemplos son:
+
+* API Keys
+* Basic Authentication
+* Bearer Tokens
+* JWT
+* OAuth 2.0
+
+Por ejemplo, una API podría requerir:
+
+```http
+Authorization: Bearer eyJhbGciOi...
+```
+
+Postman permite configurar estos mecanismos desde la sección:
+
+```text
+Authorization
+```
+
+---
+
+
+# ¿Cómo realizar una solicitud en Postman?
+
+Supongamos que tenemos una API:
+
+```text
+https://api.ejemplo.com
+```
+
+y queremos obtener todos los usuarios.
+
+Primero creamos una nueva solicitud.
+
+Seleccionamos:
+
+```text
+GET
+```
+
+Después introducimos:
+
+```text
+https://api.ejemplo.com/usuarios
+```
+
+Finalmente pulsamos:
+
+```text
+Send
+```
+
+Postman enviará:
+
+```http
+GET /usuarios
+```
+
+El servidor procesará la solicitud y devolverá una respuesta.
+
+Por ejemplo:
+
+```json
+[
+    {
+        "id": 1,
+        "nombre": "Ana"
+    },
+    {
+        "id": 2,
+        "nombre": "Carlos"
+    }
+]
+```
+
+En Postman podremos observar:
+
+```text
+Status: 200 OK
+```
+
+y el contenido de la respuesta.
+
+---
+
+# Ejemplo completo con POST
+
+Supongamos que queremos crear un usuario.
+
+Seleccionamos:
+
+```text
+POST
+```
+
+Introducimos:
+
+```text
+https://api.ejemplo.com/usuarios
+```
+
+Después vamos a:
+
+```text
+Body
+```
+
+Seleccionamos:
+
+```text
+raw
+```
+
+y:
+
+```text
+JSON
+```
+
+Escribimos:
+
+```json
+{
+    "nombre": "María",
+    "email": "maria@example.com",
+    "edad": 28
+}
+```
+
+La solicitud sería conceptualmente:
+
+```http
+POST /usuarios
+Content-Type: application/json
+```
+
+con el body:
+
+```json
+{
+    "nombre": "María",
+    "email": "maria@example.com",
+    "edad": 28
+}
+```
+
+El servidor podría responder:
+
+```text
+201 Created
+```
+
+y:
+
+```json
+{
+    "id": 35,
+    "nombre": "María",
+    "email": "maria@example.com",
+    "edad": 28
+}
+```
+
+El servidor ha creado el usuario y ha asignado el ID `35`.
+
+---
+
+# Postman y un backend
+
+Postman es especialmente útil durante el desarrollo de un **backend**.
+
+Imaginemos que estamos creando una API utilizando Python y Flask:
+
+```python
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+
+@app.get("/usuarios")
+def obtener_usuarios():
+    return jsonify([
+        {"id": 1, "nombre": "Ana"},
+        {"id": 2, "nombre": "Carlos"}
+    ])
+
+
+app.run()
+```
+
+Nuestro servidor podría ejecutarse localmente en:
+
+```text
+http://127.0.0.1:5000
+```
+
+Podríamos utilizar Postman para realizar:
+
+```http
+GET http://127.0.0.1:5000/usuarios
+```
+
+Y recibir:
+
+```json
+[
+    {
+        "id": 1,
+        "nombre": "Ana"
+    },
+    {
+        "id": 2,
+        "nombre": "Carlos"
+    }
+]
+```
+
+Esto permite comprobar que nuestro backend funciona correctamente antes de conectarlo con un frontend.
+
+---
+
+# Postman y una base de datos
+
+Es importante entender que **Postman no es una base de datos**.
+
+Postman realiza solicitudes a una API.
+
+La API puede comunicarse posteriormente con una base de datos.
+
+Por ejemplo:
+
+```text
+             GET /usuarios
+Postman ─────────────────────→ API
+                                │
+                                ↓
+                           Base de datos
+                                │
+                                ↓
+Postman ←───────────────────────┘
+             JSON
+```
+
+Por ejemplo:
+
+```text
+Postman
+   ↓
+API
+   ↓
+Python / Node.js / Java / etc.
+   ↓
+MongoDB / PostgreSQL / MySQL / etc.
+```
+
+Postman se encuentra en el lado del **cliente utilizado para probar la API**.
+
+---
+
+# Collections
+
+Una **Collection** es un conjunto de solicitudes relacionadas.
+
+Por ejemplo, podemos crear una colección llamada:
+
+```text
+API Usuarios
+```
+
+y almacenar:
+
+```text
+GET    Obtener usuarios
+GET    Obtener usuario
+POST   Crear usuario
+PUT    Actualizar usuario
+DELETE Eliminar usuario
+```
+
+Esto permite organizar nuestro trabajo.
+
+En lugar de crear nuevamente cada solicitud, podemos guardarlas y reutilizarlas.
+
+Una estructura podría ser:
+
+```text
+API Usuarios
+│
+├── Obtener usuarios
+├── Obtener usuario
+├── Crear usuario
+├── Actualizar usuario
+└── Eliminar usuario
+```
+
+---
+
+# Variables
+
+Postman permite utilizar **variables** para evitar repetir información.
+
+Por ejemplo, en lugar de escribir constantemente:
+
+```text
+https://api.ejemplo.com
+```
+
+podemos crear:
+
+```text
+{{base_url}}
+```
+
+y asignar:
+
+```text
+base_url = https://api.ejemplo.com
+```
+
+Entonces podemos escribir:
+
+```text
+{{base_url}}/usuarios
+```
+
+En otro entorno podríamos utilizar:
+
+```text
+base_url = http://localhost:5000
+```
+
+y la misma solicitud:
+
+```text
+{{base_url}}/usuarios
+```
+
+pasaría automáticamente a utilizar:
+
+```text
+http://localhost:5000/usuarios
+```
+
+Esto es especialmente útil cuando trabajamos con diferentes entornos.
+
+---
+
+# Entornos
+
+Durante el desarrollo podemos tener diferentes entornos.
+
+Por ejemplo:
+
+### Desarrollo
+
+```text
+http://localhost:5000
+```
+
+### Testing
+
+```text
+https://testing.api.ejemplo.com
+```
+
+### Producción
+
+```text
+https://api.ejemplo.com
+```
+
+En lugar de modificar manualmente todas las solicitudes, podemos utilizar variables.
+
+Por ejemplo:
+
+```text
+{{base_url}}/usuarios
+```
+
+y cambiar solamente el valor de:
+
+```text
+base_url
+```
+
+según el entorno.
+
+---
+
+# ¿Por qué utilizar Postman?
+
+Una de las principales ventajas de Postman es que permite probar una API **sin necesidad de desarrollar primero un frontend**.
+
+Imaginemos que estamos desarrollando:
+
+```text
+Frontend
+    ↓
+Backend
+    ↓
+Base de datos
+```
+
+Si el frontend todavía no está terminado, podemos utilizar Postman:
+
+```text
+Postman
+    ↓
+Backend
+    ↓
+Base de datos
+```
+
+Esto permite comprobar directamente si el backend funciona.
+
+Por ejemplo, podemos verificar:
+
+* Si el endpoint existe.
+* Si acepta correctamente los datos.
+* Si devuelve el status code correcto.
+* Si devuelve el JSON esperado.
+* Si la autenticación funciona.
+* Si los errores se gestionan correctamente.
+* Si los datos se crean correctamente.
+* Si los datos se actualizan correctamente.
+* Si los datos se eliminan correctamente.
+
+---
+
+# Postman dentro del proceso de desarrollo
+
+Un flujo habitual puede ser:
+
+```text
+1. Diseñar la API
+        ↓
+2. Crear el backend
+        ↓
+3. Crear endpoints
+        ↓
+4. Probar endpoints con Postman
+        ↓
+5. Corregir errores
+        ↓
+6. Crear frontend
+        ↓
+7. Conectar frontend con API
+```
+
+Por ejemplo, si desarrollamos:
+
+```text
+POST /usuarios
+```
+
+primero podemos probarlo directamente desde Postman.
+
+Si funciona correctamente:
+
+```text
+POST /usuarios
+       ↓
+     201
+       ↓
+Usuario creado
+```
+
+entonces podemos implementar posteriormente la llamada desde JavaScript, React, una aplicación móvil, etc.
+
+---
+
+# Ejemplo de flujo completo
+
+Supongamos que tenemos una aplicación de gestión de tareas.
+
+Nuestra API tiene:
+
+```text
+GET    /tareas
+GET    /tareas/10
+POST   /tareas
+PUT    /tareas/10
+DELETE /tareas/10
+```
+
+Podemos utilizar Postman para probar cada operación.
+
+## Obtener tareas
+
+```http
+GET /tareas
+```
+
+Respuesta:
+
+```json
+[
+    {
+        "id": 1,
+        "titulo": "Estudiar Python",
+        "completada": false
+    },
+    {
+        "id": 2,
+        "titulo": "Practicar APIs",
+        "completada": true
+    }
+]
+```
+
+## Crear una tarea
+
+```http
+POST /tareas
+```
+
+Body:
+
+```json
+{
+    "titulo": "Aprender Postman",
+    "completada": false
+}
+```
+
+Respuesta:
+
+```json
+{
+    "id": 3,
+    "titulo": "Aprender Postman",
+    "completada": false
+}
+```
+
+## Actualizar una tarea
+
+```http
+PUT /tareas/3
+```
+
+Body:
+
+```json
+{
+    "titulo": "Aprender Postman y APIs",
+    "completada": true
+}
+```
+
+## Eliminar una tarea
+
+```http
+DELETE /tareas/3
+```
+
+Respuesta:
+
+```text
+204 No Content
+```
+
+De esta manera podemos comprobar prácticamente toda la funcionalidad de nuestra API utilizando Postman.
+
+---
+
+# Estructura conceptual de una solicitud en Postman
+
+Cuando trabajamos con Postman, podemos pensar en una solicitud de esta manera:
+
+```text
+┌─────────────────────────────┐
+│ Método HTTP                 │
+│ GET / POST / PUT / DELETE   │
+├─────────────────────────────┤
+│ URL                         │
+├─────────────────────────────┤
+│ Query Parameters            │
+├─────────────────────────────┤
+│ Headers                     │
+├─────────────────────────────┤
+│ Body                        │
+└─────────────────────────────┘
+             │
+             ↓
+          SERVIDOR
+             │
+             ↓
+┌─────────────────────────────┐
+│ Status Code                 │
+│ Headers                     │
+│ Body / JSON                 │
+└─────────────────────────────┘
+```
+
+Comprender esta estructura facilita mucho el aprendizaje de Postman, porque la herramienta simplemente proporciona una interfaz gráfica para configurar y enviar estas solicitudes HTTP.
+
+---
+
