@@ -1995,24 +1995,6 @@ Supongamos que queremos crear un usuario.
 Seleccionamos:
 
 ```text
-POST
-```
-
-Introducimos:
-
-```text
-https://api.ejemplo.com/usuarios
-```
-
-Después vamos a:
-
-```text
-Body
-```
-
-Seleccionamos:
-
-```text
 raw
 ```
 
@@ -2067,6 +2049,14 @@ y:
 ```
 
 El servidor ha creado el usuario y ha asignado el ID `35`.
+
+---
+
+## Imagen 5
+
+![Postman Interface](Course%20Checkpoint%206%20Images/Postman%20Interface.png)
+
+Esta imagen muestra la interfaz de Postman utilizando una solicitud HTTP de tipo `GET` y la respuesta en formato JSON que devuelve la API al endpoint indicado en la URL mediante el método HTTP `GET`.
 
 ---
 
